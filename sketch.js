@@ -11,12 +11,14 @@ var playerArcher, archerImg;
 
 var angle = 90;
 
-function preload() {
-  backgroundImg = loadImage("./assets/background.png");
-  baseimage = loadImage("./assets/base.png");
-  playerimage = loadImage("./assets/player.png");
+var playerArrow;
 
-  archerImg = loadImage("./assets/playerArcher.png");
+function preload() {
+  backgroundImg = loadImage("assets/background.png");
+  baseimage = loadImage("assets/base.png");
+  playerimage = loadImage("assets/player.png");
+
+  archerImg = loadImage("assets/playerArcher.png");
 }
 
 function setup() {
@@ -34,11 +36,12 @@ function setup() {
   playerBase = Bodies.rectangle(200, 350, 180, 150, options);
   World.add(world, playerBase);
 
-  player = Bodies.rectangle(250, playerBase.position.y - 160, 50, 180, options);
+  player = Bodies.rectangle(250, 190, 50, 180, options);
   World.add(world,player)
 
-  playerArcher = Bodies.rectangle(340, player.position.y + 60, 80, 40, options);
-  World.add(world, playerArcher);
+  playerArcher = new PlayerArcher(325, 250, 100, 80);
+
+  playerArrow = new PlayerArrow(playerArcher.body.position.x, playerArcher.body.position.y, 100, 10);
 }
 
 function draw() {
@@ -48,10 +51,13 @@ function draw() {
   image(baseimage,playerBase.position.x,playerBase.position.y,180,150)
   image(playerimage,player.position.x,player.position.y,50,180)
   
-  push();
+  /*push();
   imageMode(CENTER);
-  image(archerImg, playerArcher.position.x, playerArcher.position.y, 80, 40);
-  pop();
+  //image(archerImg, playerArcher.body.position.x, playerArcher.body.position.y, 100, 80);
+  pop();*/
+
+  playerArcher.display();
+  playerArrow.display();
 
   // Title
   fill("#FFFF");

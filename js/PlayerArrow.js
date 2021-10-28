@@ -7,14 +7,19 @@ class PlayerArrow {
     this.width = width;
     this.height = height;
     this.body = Bodies.rectangle(x, y, this.width, this.height, options);
-    this.image = loadImage("./assets/arrow.png");
+    this.image = loadImage("assets/arrow.png");
     this.archerAngle = archerAngle;
     this.velocity = 0;
     World.add(world, this.body);
   }
 
-  display() {
-  
-   
+  display()
+  {
+    push();
+    translate(this.body.position.x, this.body.position.y);
+    rotate(this.body.angle);
+    imageMode(CENTER);
+    image(this.image, 0, 0, this.width, this.height);
+    pop();
   }
 }
